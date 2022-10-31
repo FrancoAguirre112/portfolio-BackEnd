@@ -4,39 +4,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-public class Persona {
+public class Proyectos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+   
     
-    @Size(min = 1, max = 50, message = "Longitud erronea (min:1, max:50")
-    @NotNull
     private String nombre;
-    
-    @Size(min = 1, max = 50, message = "Longitud erronea (min:1, max:50")
-    @NotNull
-    private String apellido;
-    
-    @NotNull
     private String descripcion;
-    
     private String img;
+    private String link;
 
-    public Persona() {
+    public Proyectos() {
     }
 
-    public Persona(String nombre, String apellido, String descripcion, String img) {
+    public Proyectos(String nombre, String descripcion, String img, String link) {
         this.nombre = nombre;
-        this.apellido = apellido;
         this.descripcion = descripcion;
         this.img = img;
+        this.link = link;
     }
 
     public int getId() {
@@ -55,14 +44,6 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -79,6 +60,13 @@ public class Persona {
         this.img = img;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
     
     
 }

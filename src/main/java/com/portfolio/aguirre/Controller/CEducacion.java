@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/educacion")
-@CrossOrigin(origins = "https://frontendportfolio-aguirre.web.app")
-//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = {"https://frontendportfolio-aguirre.web.app", "http://localhost:4200"})
 public class CEducacion {
     
     @Autowired
@@ -62,11 +61,9 @@ public class CEducacion {
             return new ResponseEntity(new Mensaje("Nombre ya utilizado"), HttpStatus.BAD_REQUEST);
         }
         
-        Educacion educacion = new Educacion(
-                dtoeducacion.getNombreE(), dtoeducacion.getDescripcionE()
-            );
+        Educacion educacion = new Educacion(dtoeducacion.getNombreE(), dtoeducacion.getDescripcionE(), dtoeducacion.getImgE());
         sEducacion.save(educacion);
-        return new ResponseEntity(new Mensaje("Educacion creada"), HttpStatus.OK);
+        return new ResponseEntity(educacion, HttpStatus.OK);
     }
     
     @PutMapping("/update/{id}")
@@ -82,9 +79,9 @@ public class CEducacion {
         }
         
         Educacion educacion = sEducacion.getOne(id).get();
-        
         educacion.setNombreE(dtoeducacion.getNombreE());
         educacion.setDescripcionE(dtoeducacion.getDescripcionE());
+        educacion.setImgE(dtoeducacion.getImgE());
         
         sEducacion.save(educacion);
         return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);

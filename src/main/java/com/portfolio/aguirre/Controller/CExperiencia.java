@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("explab")
-@CrossOrigin(origins = "https://frontendportfolio-aguirre.web.app")
-//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = {"https://frontendportfolio-aguirre.web.app", "http://localhost:4200"})
 public class CExperiencia {
     
     @Autowired
@@ -59,10 +58,10 @@ public class CExperiencia {
         if(sExperiencia.existByNombreE(dtoexp.getNombreE()))
             return new ResponseEntity(new Mensaje("Esa experiencia existe"), HttpStatus.BAD_REQUEST);
         
-        Experiencia experiencia = new Experiencia(dtoexp.getNombreE(), dtoexp.getDescripcionE());
+        Experiencia experiencia = new Experiencia(dtoexp.getNombreE(), dtoexp.getDescripcionE(), dtoexp.getImgE());
         sExperiencia.save(experiencia);
         
-        return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
+        return new ResponseEntity(experiencia, HttpStatus.OK);
     }
     
     @PutMapping("/update/{id}")
@@ -80,6 +79,8 @@ public class CExperiencia {
         Experiencia experiencia = sExperiencia.getOne(id).get();
         experiencia.setNombreE(dtoexp.getNombreE());
         experiencia.setDescripcionE((dtoexp.getDescripcionE()));
+        experiencia.setImgE(dtoexp.getImgE());
+        
         
         sExperiencia.save(experiencia);
         return new ResponseEntity(new Mensaje("Experiencia actualizada"), HttpStatus.OK);

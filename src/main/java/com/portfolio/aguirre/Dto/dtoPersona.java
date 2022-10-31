@@ -1,50 +1,30 @@
-package com.portfolio.aguirre.Entity;
+package com.portfolio.aguirre.Dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-public class Persona {
+
+public class dtoPersona {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    @Size(min = 1, max = 50, message = "Longitud erronea (min:1, max:50")
-    @NotNull
+    @NotBlank
     private String nombre;
     
-    @Size(min = 1, max = 50, message = "Longitud erronea (min:1, max:50")
-    @NotNull
+    @NotBlank
     private String apellido;
     
-    @NotNull
+    @NotBlank
     private String descripcion;
     
+    @NotBlank
     private String img;
 
-    public Persona() {
+    public dtoPersona() {
     }
 
-    public Persona(String nombre, String apellido, String descripcion, String img) {
+    public dtoPersona(String nombre, String apellido, String descripcion, String img) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.descripcion = descripcion;
         this.img = img;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -78,7 +58,6 @@ public class Persona {
     public void setImg(String img) {
         this.img = img;
     }
-
     
     
 }
