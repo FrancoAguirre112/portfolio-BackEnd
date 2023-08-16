@@ -1,15 +1,15 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+#
+# Build stage
+#
+FROM maven:3.8.2-jdk-11 AS build
 COPY . .
+RUN mvn clean package -DskipTests
 
-RUN ./gradlew bootJar --no-daemon
-
-FROM openjdk:17-jdk-slim
-
+#
+# Package stage
+#
+FROM openjdk:11-jdk-slim
+COPY --from=build /target/aguirre-0.0.1-SNAPSHOT.jar aguirre.jar
+# ENV PORT=8080
 EXPOSE 8080
-
-COPY --from=build /build/libs/demo-1.jar app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","aguirre.jar"]
